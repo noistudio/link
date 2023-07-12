@@ -67,6 +67,36 @@ export default class LinkTool {
     return true;
   }
 
+  static get pasteConfig() {
+        return {
+            // ... tags
+            // ... files
+            patterns: {
+                link: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i
+            }
+        }
+    }
+
+    onPaste(event){
+        switch (event.type){
+            // ... case 'tag'
+            // ... case 'file'
+            case 'pattern':
+                const link = event.detail.data;
+
+                this.data.link=link;
+                this.nodes.input.textContent=link;
+
+
+                var event = new KeyboardEvent('keypress', {keyCode: 13});
+                this.startFetching(event);
+
+
+
+                break;
+        }
+    }
+
   /**
    * @param {object} options - Tool constructor options fot from Editor.js
    * @param {LinkToolData} options.data - previously saved data
